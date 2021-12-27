@@ -2505,7 +2505,8 @@ int InitNEC(int max)
 			aM = new double[WZMAX+amax];
 			break;
 		}
-		catch(xalloc){ // xalloc が送出された場合にのみこのブロックに入る
+//		catch(xalloc){ // xalloc が送出された場合にのみこのブロックに入る
+		catch(std::bad_alloc){ // xalloc が送出された場合にのみこのブロックに入る
 			max -= 256;
 			DeleteNEC();
 		}

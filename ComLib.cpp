@@ -20,7 +20,7 @@
 #pragma hdrstop
 
 #include "ComLib.h"
-#include "MiniNec3.h"
+#include "mininec3.h"
 
 
 char	BgnDir[128];

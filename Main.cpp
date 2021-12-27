@@ -20,7 +20,7 @@
 #pragma hdrstop
 
 #include "Main.h"
-#include "MiniNec3.h"
+#include "mininec3.h"
 #include "TextEdit.h"
 #include "VerDsp.h"
 #include "MediaDlg.h"
@@ -115,7 +115,7 @@ __fastcall TMainWnd::TMainWnd(TComponent* Owner)
 	exeenv.RecentMax = 4;
 	exeenv.RecentMAA = 1;
 	WaveSel->ItemIndex = exeenv.Wave;
-	exeenv.WindowState = wsNormal;
+	exeenv.WindowState = (int) wsNormal;
 
 	ResColors[0] = clBlack;	//	黒色
 	ResColors[1] = clMaroon;	//	栗色
@@ -487,7 +487,8 @@ void __fastcall TMainWnd::WriteRegister(void)
 	pIniFile->WriteInteger("Job", "IntPos", exeenv.IntPos);
 	pIniFile->WriteInteger("Job", "CurDir", exeenv.CurDir);
 	pIniFile->WriteInteger("Job", "FixFreeAngle", exeenv.FixFreeAngle);
-	pIniFile->WriteInteger("Job", "WindowState", WindowState);
+//	pIniFile->WriteInteger("Job", "WindowState", WindowState);
+	pIniFile->WriteInteger("Job", "WindowState", exeenv.WindowState);
 // 最新のファイル
 	pIniFile->WriteInteger("Recent File", "Max", exeenv.RecentMax);
 	pIniFile->WriteInteger("Recent File", "OnlyMAA", exeenv.RecentMAA);
@@ -4434,4 +4435,5 @@ void __fastcall TMainWnd::KMMANAWebW1Click(TObject *Sender)
 	WebRef.ShowHTML("http://plaza27.mbn.or.jp/~je3hht/mmana/index.html");	
 }
 //---------------------------------------------------------------------------
+
 

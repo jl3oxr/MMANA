@@ -29,7 +29,7 @@ __fastcall TTextEditDlg::TTextEditDlg(TComponent* AOwner)
 	: TForm(AOwner)
 {
 	ap = NULL;
-	Memo->Font->Pitch = fpFixed;       //ja7ude 1.0
+	//Memo->Font->Pitch = fpFixed;       //ja7ude 1.0
 	EntryAlignControl();
 }
 //---------------------------------------------------------------------

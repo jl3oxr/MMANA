@@ -168,4 +168,5 @@ void __fastcall TACalInfoBox::AutoJXClick(TObject *Sender)
     }
 }
 //---------------------------------------------------------------------------
-
+
+

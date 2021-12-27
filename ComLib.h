@@ -49,7 +49,7 @@
 extern	LPCSTR	FreqTbl[];
 extern	const char	ILLFMT[];
 
-enum TFontPitch { fpDefault, fpVariable, fpFixed };	//JA7UDE 0427
+//enum TFontPitch { fpDefault, fpVariable, fpFixed };	//JA7UDE 0427
 
 typedef struct {		// ƒƒCƒ„[‚Ì’è‹`
 	double	X1;

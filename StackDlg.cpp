@@ -217,4 +217,5 @@ void __fastcall TStackDlgBox::VCChange(TObject *Sender)
 	UpdateAntBtn();
 }
 //---------------------------------------------------------------------------
-
+
+

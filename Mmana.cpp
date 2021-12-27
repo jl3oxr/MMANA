@@ -51,7 +51,7 @@ USEFORM("ACalEle.cpp", ACalEleBox);
 USEFORM("FreqSet.cpp", FreqSetDlg);
 USEFORM("Print.cpp", PrintDlgBox);
 //---------------------------------------------------------------------------
-WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	try
 	{
