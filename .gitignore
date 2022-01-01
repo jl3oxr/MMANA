@@ -1,8 +1,14 @@
 Debug_Build/
 Release_Build/
 __history/
+__recover/
 Mmana.ini
 Mmana.tds
 Mmana.exe
 Mmana.map
+Mmana.ilc
+Mmana.ild
+Mmana.ilf
+Mmana.ilr
+Mmana.ils
 
