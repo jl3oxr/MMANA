@@ -17,8 +17,8 @@
 
 #ifndef ComLibH
 #define ComLibH
-#include <stdio.h>    //ja7ude 1.0
-#include <stdlib.h>   //ja7ude 1.0
+//#include <stdio.h>    //ja7ude 1.0
+//#include <stdlib.h>   //ja7ude 1.0
 #include <ExtCtrls.hpp>
 #include <inifiles.hpp>
 #include <Grids.hpp>
