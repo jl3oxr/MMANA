@@ -8,20 +8,17 @@ JE3HHT 森OMが作成された、Windows上で動作するアンテナ設計解�
 http://www.gnu.org/licenses/lgpl-3.0.en.html
 を参照してください。
 
-ソースコードは次のGitHubにて公開されています。
-https://github.com/ja7ude/MMANA
+JA7UDE 大庭OMが公開してくださっているGitHubリポジトリhttps://github.com/ja7ude/MMANA
+からフォークしてソースをいじってます。
 
+EmbarcaderoのRAD Studio 10.4.2 Sydney Community Editionでビルドできることを確認しました。
+Community Editionは個人の開発者、スタートアップ企業、学生などが無償で利用できます。
 
-LGPL規約を遵守する限り、どなたでも、publicブランチ、privateブランチを作ることができます。Committerは2013年8月現在、JA7UDE 大庭のみですが、今後、運営管理に協力いただける方がいらっしゃれば、随時対応させていただきます。
+https://www.embarcadero.com/jp/products/cbuilder/starter
 
-オリジナルのMMANAはBorland C++ Builder バージョン3.0で開発されており、その開発環境は10年以上前に販売終了となっています。そのため、バージョン3.0を入手することはかなり困難な状況にあります。少しでも多くの方にMMANAソースコードを有効利用していただけることを考慮し、C++ Builderの最新版（2013年8月現在）である、XE4でビルドできるように、ソースコードを書き換えました。
-http://www.embarcadero.com/jp/products/cbuilder
+Windowsをお使いで、上記の条件にあてはまるならば、自分のPCにインストールしてMMANAの実行バイナリーを自分で作ることができます。
 
-C++ Builder XE4には数種類のバージョンがありますが、一番安い　C++ Builder XE4 Starter ESDでビルドできます。また、期間限定の無料体験版もあるようですので、とりあえずそれを使って試す手もあるかと思われます。
+コンパイルは面倒という方にはReleasesに適時、最新版のコンパイル済み実行バイナリーを置いておくようにしますので、そちらをご利用ください。
 
-73
-JA7UDE
-大庭
-
-
+JL3OXR
 
