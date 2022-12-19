@@ -957,7 +957,7 @@ void __fastcall TBwDispDlg::UDFreqClick(TObject *Sender, TUDBtnType Button)
 //---------------------------------------------------------------------------
 void __fastcall TBwDispDlg::UDFreqChanging(TObject *Sender, bool &AllowChange)
 {
-	UDFreq->Position = 50;
+//	UDFreq->Position = 50;
 }
 //---------------------------------------------------------------------------
 void __fastcall TBwDispDlg::UDMatchClick(TObject *Sender, TUDBtnType Button)
@@ -985,7 +985,7 @@ void __fastcall TBwDispDlg::UDMatchClick(TObject *Sender, TUDBtnType Button)
 //---------------------------------------------------------------------------
 void __fastcall TBwDispDlg::UDMatchChanging(TObject *Sender, bool &AllowChange)
 {
-	UDMatch->Position = 50;
+//	UDMatch->Position = 50;
 }
 //---------------------------------------------------------------------------
 // ‹¤UŽü”g”‚ðŒvŽZ
