@@ -4434,5 +4434,5 @@ void __fastcall TMainWnd::KMMANAWebW1Click(TObject *Sender)
 {
 	WebRef.ShowHTML("http://plaza27.mbn.or.jp/~je3hht/mmana/index.html");	
 }
-//---------------------------------------------------------------------------0
+//---------------------------------------------------------------------------08
 

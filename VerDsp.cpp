@@ -29,5 +29,7 @@ __fastcall TVerDspDlg::TVerDspDlg(TComponent* AOwner)
 	: TForm(AOwner)
 {
 	Version->Caption = VERSTR;
+	Version2->Caption = VERSTR2;
 }
-//--------------------------------------------------------------------- 
+//---------------------------------------------------------------------------
+
