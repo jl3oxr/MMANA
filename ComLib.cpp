@@ -5257,7 +5257,7 @@ void CACal::AdjSetup(int n)
 			ap->DMIN = 0.0;
 			ap->DMAX = 2000.0;
 			ap->DW = PitchUnit ? 0.01 : 1.0;
-			if( ap->SubPos > 1 ) ap->SubPos = 1;
+//			if( ap->SubPos > 1 ) ap->SubPos = 1;
 			break;
 	}
 }
