@@ -41,7 +41,12 @@
 #define	RESMAX	10		// 結果比較の最大の数
 
 #define	VERSTR	"MMANA Ver1.77 (C) JE3HHT 1999-2000"
-#define	VERSTR2	"build 20230103"
+#ifdef __WIN32__
+#define	VERSTR2	"build 20230103 (32bit)"
+#endif
+#ifdef _WIN64
+#define	VERSTR2	"build 20230103 (64bit)"
+#endif
 #define RESSTR	"MMANA Res1.16\x1a"	// RESVERと同じ値
 #define ACALSTR	"MMANA Opt1.13\x1a"	// OPTVERと同じ値
 #define	RESVER	116		// RES Verを変更した場合 TMainWnd::LoadResFile()をチェック
