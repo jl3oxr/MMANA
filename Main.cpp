@@ -1,24 +1,18 @@
 //Copyright+LGPL
-
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 // Copyright 1999-2013 Makoto Mori, Nobuyuki Oba
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 // This file is part of MMANA.
-
 // MMANA is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
 // as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
 // MMANA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
-
 // You should have received a copy of the GNU Lesser General Public License along with MMANA.  If not, see
 // <http://www.gnu.org/licenses/>.
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-
 //---------------------------------------------------------------------------
 //#include <vcl.h>
 #pragma hdrstop
-
 #include "Main.h"
 #include "mininec3.h"
 #include "TextEdit.h"
@@ -45,19 +39,16 @@
 //---------------------------------------------------------------------------
 #pragma resource "*.dfm"
 TMainWnd *MainWnd;
-
 //---------------------------------------------------------------------------
 static void LogPrint(char *ct, ...)
 {
 	va_list	pp;
 	char	bf[256];
-
 	va_start(pp, ct);
 	vsprintf( bf, ct, pp );
 	va_end(pp);
 	MainWnd->CalMemo->Lines->Add(bf);
 }
-
 //---------------------------------------------------------------------------
 __fastcall TMainWnd::TMainWnd(TComponent* Owner)
 	: TForm(Owner)
@@ -68,7 +59,6 @@ __fastcall TMainWnd::TMainWnd(TComponent* Owner)
 	pACal = NULL;
 	pCalAnt = &ant;
 	Application->OnIdle = OnIdle;
-
 	for( int i = 0; FreqTbl[i] != NULL; i++ ){
 		Freq->Items->Add(FreqTbl[i]);
 	}
@@ -82,7 +72,6 @@ __fastcall TMainWnd::TMainWnd(TComponent* Owner)
 	strcpy(AntDir, BgnDir);
 	strcpy(ResDir, BgnDir);
 	antSave = "";
-
 	memset(&env, 0, sizeof(env));
 	env.antheight = 20.0;
 	env.mmax = 1;
@@ -101,7 +90,6 @@ __fastcall TMainWnd::TMainWnd(TComponent* Owner)
 	env.pmax = 1280;
 	if( ::GetSystemMetrics(SM_CXFULLSCREEN) <= 650 ) env.FontSize = 1;
 	WireSel->Text = "無損失";
-
 	memset(&exeenv, 0, sizeof(exeenv));
 	exeenv.AntXc = exeenv.AntYc = 0;
 	exeenv.CalcDisp = 1;
@@ -116,7 +104,6 @@ __fastcall TMainWnd::TMainWnd(TComponent* Owner)
 	exeenv.RecentMAA = 1;
 	WaveSel->ItemIndex = exeenv.Wave;
 	exeenv.WindowState = (int) wsNormal;
-
 	ResColors[0] = clBlack;	//	黒色
 	ResColors[1] = clMaroon;	//	栗色
 	ResColors[2] = clGreen;	//	緑色
@@ -131,9 +118,7 @@ __fastcall TMainWnd::TMainWnd(TComponent* Owner)
 	ResColors[9] = clBlue;	//	青色
 //clFuchsia	赤紫色
 //clAqua	空色
-
 	ReadRegister();
-
 	if( int(WindowState) != exeenv.WindowState ) WindowState = TWindowState(exeenv.WindowState);
 	env.pmax = InitNEC(env.pmax);
 	Ant3D->Checked = exeenv.Ant3D;
@@ -143,7 +128,6 @@ __fastcall TMainWnd::TMainWnd(TComponent* Owner)
 	DrawPtnH.SetRect(PBoxPtn->Canvas, 0, 0, PBoxPtn->Width / 2 - 2, PBoxPtn->Height);
 	DrawPtnV.SetRect(PBoxPtn->Canvas, (PBoxPtn->Width/2) + 2, 0, PBoxPtn->Width, PBoxPtn->Height);
 }
-
 //---------------------------------------------------------------------------
 // 終了時のデストラクタ
 __fastcall TMainWnd::~TMainWnd(void)
@@ -152,7 +136,6 @@ __fastcall TMainWnd::~TMainWnd(void)
 	if( pCalAnt != &ant ) delete pCalAnt;
 	DeleteNEC();
 }
-
 //---------------------------------------------------------------------------
 // アイドル処理  (done == FALSE then  no-message pump)
 void __fastcall TMainWnd::OnIdle(TObject *Sender, bool &Done)
@@ -383,7 +366,6 @@ void __fastcall TMainWnd::RegCopy(void)
 {
 	char	fm1[256];
 	FILE	*fp;
-
 	::GetWindowsDirectory(fm1, 222);
 	if( LastC(fm1) != '\\' ) strcat(fm1, "\\");
 	strcat(fm1, "MMANA.INI");
@@ -402,17 +384,14 @@ void __fastcall TMainWnd::ReadRegister(void)
 	RegCopy();
 	char	bf[256];
 	int i;
-
 	sprintf(bf, "%sMmana.ini", BgnDir);
 	TIniFile	*pIniFile = new TIniFile(bf);
-
 // ディレクトリ環境
 	AnsiString	as;
 	as = pIniFile->ReadString("Directory", "ANT", AntDir);
 	strncpy(AntDir, as.c_str(), sizeof(AntDir));
 	as = pIniFile->ReadString("Directory", "RES", ResDir);
 	strncpy(ResDir, as.c_str(), sizeof(ResDir));
-
 // 計算環境
 	env.type = pIniFile->ReadInteger("Env", "Type", env.type);
 	env.antheight = ReadDoubleIniFile(pIniFile, "Env", "AntHeight", env.antheight);
@@ -438,7 +417,6 @@ void __fastcall TMainWnd::ReadRegister(void)
 	exeenv.CurDir = pIniFile->ReadInteger("Job", "CurDir", exeenv.CurDir);
 	exeenv.FixFreeAngle = pIniFile->ReadInteger("Job", "FixFreeAngle", exeenv.FixFreeAngle);
 	exeenv.WindowState = pIniFile->ReadInteger("Job", "WindowState", exeenv.WindowState);
-
 // 最新のファイル
 	exeenv.RecentMax = pIniFile->ReadInteger("Recent File", "Max", exeenv.RecentMax);
 	exeenv.RecentMAA = pIniFile->ReadInteger("Recent File", "OnlyMAA", exeenv.RecentMAA);
@@ -447,10 +425,8 @@ void __fastcall TMainWnd::ReadRegister(void)
 		as = pIniFile->ReadString("Recent File", bf, "");
 		RecentMenu.SetItemText(i, as.c_str());
 	}
-
 	delete pIniFile;
 }
-
 //---------------------------------------------------------------------------
 // レジストリへの書き込み
 void __fastcall TMainWnd::WriteRegister(void)
@@ -459,7 +435,6 @@ void __fastcall TMainWnd::WriteRegister(void)
 	char	bf[256];
 	sprintf(bf, "%sMmana.ini", BgnDir);
 	TIniFile	*pIniFile = new TIniFile(bf);
-
 // ディレクトリ環境
 	pIniFile->WriteString("Directory", "ANT", AntDir);
 	pIniFile->WriteString("Directory", "RES", ResDir);
@@ -498,20 +473,17 @@ void __fastcall TMainWnd::WriteRegister(void)
 	}
 	delete pIniFile;
 }
-
 //---------------------------------------------------------------------------
 // アンテナ定義アイテムの表示
 void __fastcall TMainWnd::UpdateCount(void)
 {
 	char bf[128];
-
 	sprintf(bf, "Wire %u本", ant.wmax);
 	WireCnt->Caption = bf;
 	sprintf(bf, "給電点 %u個", ant.cmax);
 	CurCnt->Caption = bf;
 	sprintf(bf, "集中定数 %u個", ant.lmax);
 	LoadCnt->Caption = bf;
-
 	if( (ant.StackH==1)&&(ant.StackV==1) ){
 		strcpy(bf,"スタック");
 	}
@@ -570,7 +542,6 @@ void __fastcall TMainWnd::InitAntDef(void)
 	pCalAnt = &ant;
 	SetAntDef();
 	UpdateCount();
-
 #if 0
 	ant.pdef[0].RR = -0.001;
 	ant.pdef[0].Type = 0;
@@ -586,11 +557,9 @@ void __fastcall TMainWnd::InitAntDef(void)
 	ant.pdef[0].R[4] = 0.005;
 #endif
 }
-
 void __fastcall TMainWnd::SetAntDef(void)
 {
 	char	bf[64];
-
 	AntName->Text = ant.Name;
 	AntName2->Caption = ant.Name;
 	AntName3->Caption = ant.Name;
@@ -623,16 +592,13 @@ void __fastcall TMainWnd::SetAntDef(void)
 		strcpy(bf, "MMANA - 無題");
 	}
 	MainWnd->Caption = bf;
-
 	CalcSel->ItemIndex = env.type;
 	AntHeight->Text = StrDbl(env.antheight);
 	WireSel->Text = WireSel->Items->Strings[env.WireRoss];
 }
-
 void __fastcall TMainWnd::GetAntDef(void)
 {
 	int		i, j;
-
 	strncpy(ant.Name, AnsiString(AntName->Text).c_str(), sizeof(ant.Name));	//ja7ude 1.0
 	double	d;
 	Calc(d, AnsiString(Freq->Text).c_str());		//ja7ude 1.0
@@ -657,7 +623,6 @@ void __fastcall TMainWnd::GetAntDef(void)
 	else {
 		EditSC->Text = StrDbl(ant.SC);
 	}
-
 	ant.cauto = AutoVol->Checked;
 	ant.lenb = EnbLoad->Checked;
 	for( i = 0; i < ant.lmax; i++ ){
@@ -668,10 +633,8 @@ void __fastcall TMainWnd::GetAntDef(void)
 			ant.ldef[i].SN = j+1;
 		}
 	}
-
 	env.type = CalcSel->ItemIndex;
 	Calc(env.antheight, AnsiString(AntHeight->Text).c_str());               //ja7ude 1.0
-
 	if( !strcmp(AnsiString(WireSel->Text).c_str(), "無損失") ){             //ja7ude 1.0
 		env.WireRoss = 0;
 	}
@@ -757,7 +720,6 @@ void __fastcall TMainWnd::Grid2GetText(LPSTR t, long Col, long Row)
 		}
 	}
 }
-
 //---------------------------------------------------------------------------
 // 給電定義のセル位置のテキストを返す
 void __fastcall TMainWnd::Grid3GetText(LPSTR t, long Col, long Row)
@@ -792,13 +754,11 @@ void __fastcall TMainWnd::Grid3GetText(LPSTR t, long Col, long Row)
 		}
 	}
 }
-
 //---------------------------------------------------------------------------
 // ロード定義のセル位置のテキストを返す
 void __fastcall TMainWnd::Grid4GetText(LPSTR t, long Col, long Row)
 {
 	LPCSTR	_ttp[]={"LC","R+jX","S"};
-
 	if( Row ){
 		Row--;
 		*t = 0;
@@ -878,11 +838,9 @@ void __fastcall TMainWnd::Grid1DrawCell(TObject *Sender, int Col, int Row,
 {
 	LPCSTR	_ty[]={"自由","完全GND","ﾘｱﾙGND"};
 	char	bf[64];
-
 	Grid1->Canvas->FillRect(Rect);
 	int X = Rect.Left + 4;
 	int Y = Rect.Top + 2;
-
 	if( Row ){
 		Row--;
 		bf[0] = 0;
@@ -968,19 +926,16 @@ void __fastcall TMainWnd::Grid1DrawCell(TObject *Sender, int Col, int Row,
 		}
 	}
 }
-
 //---------------------------------------------------------------------------
 // ワイヤー定義のグリッド表示
 /*
 void __fastcall TForm1::StringGrid1DrawCell(TObject *Sender, int ACol,
       int ARow, TRect &Rect, TGridDrawState State)
 */
-
 void __fastcall TMainWnd::Grid2DrawCell(TObject *Sender, int Col,     //JA7UDE 1.0
 	int Row, TRect &Rect, TGridDrawState State)
 {
 	char	bf[64];
-
 	if( (Row >= 1) && (Col >= 1) && (ActiveControl != Grid2) ){
 		Grid2->Canvas->Brush->Color = clWindow;
 		Grid2->Canvas->Font->Color = clBlack;
@@ -988,7 +943,6 @@ void __fastcall TMainWnd::Grid2DrawCell(TObject *Sender, int Col,     //JA7UDE 1
 	Grid2->Canvas->FillRect(Rect);
 	int X = Rect.Left + 1;
 	int Y = Rect.Top + 1;
-
 	if( Row ){
 		Grid2GetText(bf, Col, Row);
 		Grid2->Canvas->TextOut(X, Y, bf);
@@ -1010,7 +964,6 @@ void __fastcall TMainWnd::Grid3DrawCell(TObject *Sender, int Col, int Row,
 	TRect &Rect, TGridDrawState State)
 {
 	char	bf[64];
-
 	if( (Row >= 1) && (Col >= 1) && (ActiveControl != Grid3) ){
 		Grid3->Canvas->Brush->Color = clWindow;
 		Grid3->Canvas->Font->Color = clBlack;
@@ -1018,7 +971,6 @@ void __fastcall TMainWnd::Grid3DrawCell(TObject *Sender, int Col, int Row,
 	Grid3->Canvas->FillRect(Rect);
 	int X = Rect.Left + 1;
 	int Y = Rect.Top + 1;
-
 	if( Row ){
 		Grid3GetText(bf, Col, Row);
 		Grid3->Canvas->TextOut(X, Y, bf);
@@ -1037,7 +989,6 @@ void __fastcall TMainWnd::Grid4DrawCell(TObject *Sender, int Col, int Row,
 	TRect &Rect, TGridDrawState State)
 {
 	char	bf[64];
-
 	if( (Row >= 1) && (Col >= 1) && (ActiveControl != Grid4) ){
 		Grid4->Canvas->Brush->Color = clWindow;
 		Grid4->Canvas->Font->Color = clBlack;
@@ -1045,7 +996,6 @@ void __fastcall TMainWnd::Grid4DrawCell(TObject *Sender, int Col, int Row,
 	Grid4->Canvas->FillRect(Rect);
 	int X = Rect.Left + 1;
 	int Y = Rect.Top + 1;
-
 	if( Row ){
 		Grid4GetText(bf, Col, Row);
 		Grid4->Canvas->TextOut(X, Y, bf);
@@ -1109,7 +1059,6 @@ void __fastcall TMainWnd::Grid2SetEditText(TObject *Sender, int ACol,
 	double	d;
 	int		di;
 	WDEF	OldW;
-
 	if( Grid2->EditorMode == TRUE ) return;
 	if( ARow ){
 		ARow--;
@@ -1194,7 +1143,6 @@ void __fastcall TMainWnd::Grid2GetEditText(TObject *Sender, int ACol,   //JA7UDE
 	int ARow, UnicodeString &Value)
 {
 	char	bf[64];
-
 	Grid2GetText(bf, ACol, ARow);
 	Value = bf;
 }
@@ -1227,7 +1175,6 @@ void __fastcall TMainWnd::Grid3SetEditText(TObject *Sender, int ACol,   //ja7ude
 	int ARow, const UnicodeString Value)
 {
 	double	d;
-
 	if( Grid3->EditorMode == TRUE ) return;
 	if( ARow ){
 		ARow--;
@@ -1261,7 +1208,6 @@ void __fastcall TMainWnd::Grid3GetEditText(TObject *Sender, int ACol,
 	int ARow, UnicodeString &Value)
 {
 	char	bf[64];
-
 	Grid3GetText(bf, ACol, ARow);
 	Value = bf;
 }
@@ -1342,7 +1288,6 @@ void __fastcall TMainWnd::Grid4SetEditText(TObject *Sender, int ACol,
 	int ARow, const UnicodeString Value)
 {
 	double	d, dw;
-
 	if( Grid4->EditorMode == TRUE ) return;
 	if( ARow ){
 		ARow--;
@@ -1460,7 +1405,6 @@ void __fastcall TMainWnd::Grid4GetEditText(TObject *Sender, int ACol,
 	}
 	else {
 		char	bf[64];
-
 		Grid4GetText(bf, ACol, ARow);
 		Value = bf;
 	}
@@ -1587,7 +1531,6 @@ int __fastcall TMainWnd::SaveAntFile(LPCSTR pName)
 {
 	AnsiString	out;
 	FILE		*fp;
-
 	SaveAntStrings(out);
 	if( (fp = fopen(pName, "wb"))!=NULL ){
 		fputs(out.c_str(), fp);
@@ -1612,7 +1555,6 @@ int __fastcall TMainWnd::LoadAntFile(LPCSTR pName)
 	AnsiString	in;
 	FILE		*fp;
 	char		bf[1024];
-
 	if( (fp = fopen(pName, "rt"))!=NULL ){
 		while(!feof(fp)){
 			if( fgets(bf, 1024, fp) != NULL ){
@@ -1622,7 +1564,6 @@ int __fastcall TMainWnd::LoadAntFile(LPCSTR pName)
 			}
 		}
 		fclose(fp);
-
 		InitAntDef();
 		LoadAntStrings(in);
 		SetAntDef();
@@ -1640,7 +1581,6 @@ int __fastcall TMainWnd::LoadAntFile(LPCSTR pName)
 		return FALSE;
 	}
 }
-
 //---------------------------------------------------------------------------
 //現在のアンテナ定義を文字列に変換
 void __fastcall TMainWnd::SaveAntStrings(AnsiString &out)
@@ -1648,7 +1588,6 @@ void __fastcall TMainWnd::SaveAntStrings(AnsiString &out)
 	char	bf[256];
 	int		i, j;
 	LPSTR	t;
-
 	GetAntDef();
 	out = ant.Name;
 	out += "\r\n*\r\n";
@@ -1755,7 +1694,6 @@ void __fastcall TMainWnd::SaveAntStrings(AnsiString &out)
 		out += antRem;
 	}
 }
-
 //---------------------------------------------------------------------------
 //文字列からアンテナ定義を作成
 void __fastcall TMainWnd::LoadAntStrings(AnsiString &in)
@@ -1764,7 +1702,6 @@ void __fastcall TMainWnd::LoadAntStrings(AnsiString &in)
 	int		i, j;
 	char	bf[1024];
 	LPSTR	t, p;
-
 	antRem = "";
 	if( cs.LoadTextLoop(bf, 1023) == FALSE ) goto _ex;
 	strncpy(ant.Name, bf, sizeof(ant.Name));
@@ -1878,7 +1815,6 @@ void __fastcall TMainWnd::LoadAntStrings(AnsiString &in)
 				break;
 		}
 	}
-
 	if( cs.LoadTextLoop(bf, 1023) == TRUE ){
 		p = StrDlm(t, bf);		// DM1
 		CalcU(ant.DM1, t);
@@ -1904,7 +1840,6 @@ void __fastcall TMainWnd::LoadAntStrings(AnsiString &in)
 		ant.EC = 1;
 		ant.SC = 2.0;
 	}
-
 	if( cs.LoadTextLoop(bf, 1023) == FALSE ) goto _ex;
 	p = StrDlm(t, bf);
 	CalcU(env.type, t);
@@ -1975,10 +1910,8 @@ _ex:;
 	DoFreq->Text = bf;
 	ant.Edit = 0;
 	ant.Flag = 1;
-
 	exeenv.AntXc = exeenv.AntYc = 0;
 }
-
 //---------------------------------------------------------------------------
 // TextEditボタン
 // 新規作成 メニュー
@@ -2077,7 +2010,6 @@ void __fastcall TMainWnd::CalTrgBtnClick(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TMainWnd::K10Click(TObject *Sender)
 {
 	TVerDspDlg *Box = new TVerDspDlg(this);
@@ -2097,13 +2029,11 @@ int __fastcall TMainWnd::Plus2Seg(int Plus)
 	if( i < 0 ) i = 0;
 	return pCalAnt->wzdef[i].SNo + (Plus - pCalAnt->wzdef[i].PNo);
 }
-
 //---------------------------------------------------------------------------
 // アンテナ形状の表示イベント
 void __fastcall TMainWnd::PBoxAntPaint(TObject *Sender)
 {
 	TRect	rc;
-
 	rc.Left = 0;
 	rc.Top = 0;
 	rc.Right = PBoxAnt->Width;
@@ -2115,7 +2045,6 @@ void __fastcall TMainWnd::PBoxAntPaint(TObject *Sender)
 	sc = sc * sc * sc * sc;
 	int		Xc = int(PBoxAnt->Width/2 + (exeenv.AntXc * sc));
 	int		Yc = int(PBoxAnt->Height/2 + (exeenv.AntYc * sc));
-
 	PBoxAnt->Canvas->Pen->Color = clWhite;
 	double x, y;
 	int		X,Y, X2, Y2;
@@ -2123,7 +2052,6 @@ void __fastcall TMainWnd::PBoxAntPaint(TObject *Sender)
 	deg *= (PAI / 180.0);
 	double zdeg = double(TBarZDeg->Position);
 	zdeg *= (PAI / 180.0);
-
 	PBoxAnt->Canvas->Pen->Color = clLtGray;
 	Calc3DXY(x, y, deg, zdeg, 0, 0, 0);				// Y
 	X = int(x) + Xc;
@@ -2135,7 +2063,6 @@ void __fastcall TMainWnd::PBoxAntPaint(TObject *Sender)
 	PBoxAnt->Canvas->LineTo(X, Y);
 	int Sop = ::SetBkMode(PBoxAnt->Canvas->Handle, TRANSPARENT);
 	PBoxAnt->Canvas->TextOut(X, Y, "Y");
-
 	Calc3DXY(x, y, deg, zdeg, 0, 0, 0);				// Z
 	X = int(x) + Xc;
 	Y = Yc - int(y);
@@ -2146,7 +2073,6 @@ void __fastcall TMainWnd::PBoxAntPaint(TObject *Sender)
 	PBoxAnt->Canvas->LineTo(X, Y);
 	::SetBkMode(PBoxAnt->Canvas->Handle, TRANSPARENT);
 	PBoxAnt->Canvas->TextOut(X+4, 0, "Z");
-
 	Calc3DXY(x, y, deg, zdeg, 0, 0, 0);				// X
 	X = int(x) + Xc;
 	Y = Yc - int(y);
@@ -2157,7 +2083,6 @@ void __fastcall TMainWnd::PBoxAntPaint(TObject *Sender)
 	PBoxAnt->Canvas->LineTo(X, Y);
 	::SetBkMode(PBoxAnt->Canvas->Handle, TRANSPARENT);
 	PBoxAnt->Canvas->TextOut(X, Y, "X");
-
 	// ワイヤの表示
 	PBoxAnt->Canvas->Pen->Color = clBlack;
 	int sel = Grid2->Row - 1;
@@ -2226,7 +2151,6 @@ void __fastcall TMainWnd::PBoxAntPaint(TObject *Sender)
 		::SetBkMode(PBoxAnt->Canvas->Handle, TRANSPARENT);
 		PBoxAnt->Canvas->Ellipse(X-3, Y-3, X+4, Y+4);
 	}
-
 	PBoxAnt->Canvas->Pen->Color = clRed;
 	Y = YT+(FH/2);
 	PBoxAnt->Canvas->MoveTo(3, Y-3); PBoxAnt->Canvas->LineTo(9, Y+3);
@@ -2252,7 +2176,6 @@ void __fastcall TMainWnd::PBoxAntPaint(TObject *Sender)
 	PBoxAnt->Canvas->LineTo(X-2, Y+2); PBoxAnt->Canvas->LineTo(X-2, Y-2);
 	PBoxAnt->Canvas->TextOut(12, YT, "組み合わせ点");
 #endif
-
 	// 電流分布の表示
 	if( DspCur->Checked && res.IsCalc() ){
 		int s, p, v;
@@ -2409,7 +2332,6 @@ void __fastcall TMainWnd::AllViewBtnClick(TObject *Sender)
 {
 	double	XL, XH, YL, YH, D, x, y;
 	int		i, pos;
-
 	if( !ant.wmax ) return;
 	double deg = double(TBarDeg->Position);
 	deg *= (PAI / 180.0);
@@ -2548,7 +2470,6 @@ void __fastcall TMainWnd::DspPlusClick(TObject *Sender)
 void __fastcall TMainWnd::GndSetBtnClick(TObject *Sender)
 {
 	TMediaDlgBox *Box = new TMediaDlgBox(this);
-
 	if( Box->Execute() == TRUE ){
 		// 計算結果無効化
 	}
@@ -2565,7 +2486,6 @@ void __fastcall TMainWnd::K6Click(TObject *Sender)
 int __fastcall TMainWnd::SaveResFile(LPCSTR pName)
 {
 	FILE	*fp;
-
 	if( (fp = fopen(pName, "wb"))!=NULL ){
 		fwrite(RESSTR, 1, 16, fp);
 		// アンテナ定義を格納
@@ -2591,7 +2511,6 @@ int __fastcall TMainWnd::LoadResFile(LPCSTR pName)
 {
 	FILE		*fp;
 	char		bf[256];
-
 	if( (fp = fopen(pName, "rb"))!=NULL ){
 		fread(bf, 1, 16, fp);
 		int Ver = GetFileVersion(bf, RESSTR);
@@ -2628,7 +2547,6 @@ int __fastcall TMainWnd::LoadResFile(LPCSTR pName)
 	}
 	return FALSE;
 }
-
 //---------------------------------------------------------------------------
 // 計算結果を開くメニュー
 void __fastcall TMainWnd::K12Click(TObject *Sender)
@@ -2651,7 +2569,6 @@ void __fastcall TMainWnd::K12Click(TObject *Sender)
 void __fastcall TMainWnd::K11Click(TObject *Sender)
 {
 	char	bf[256];
-
 	SaveDialog->Title = "計算結果を保存";
 	SaveDialog->Filter = "MMANA 計算結果(*.mab)|*.mab|";
 	if( *antFname.c_str() ){
@@ -2693,7 +2610,6 @@ int __fastcall TMainWnd::CheckSaveAntFile(void)
 void __fastcall TMainWnd::KC1Click(TObject *Sender)
 {
 	TResCmpDlg *Box = new TResCmpDlg(this);
-
 	Box->Execute(ResColors);
 	delete Box;
 }
@@ -2705,7 +2621,6 @@ void __fastcall TMainWnd::ShowHelp(LPCSTR pName)
 	char	Name[256];
 	AnsiString	in;
 	FILE	*fp;
-
 	sprintf(Name, "%s%s", BgnDir, pName);
 	SetWaitCursor();
 	if( (fp = fopen(Name, "rt"))!=NULL ){
@@ -2757,7 +2672,6 @@ void __fastcall TMainWnd::FormResize(TObject *Sender)
 	AlignGrid[1].NewAlign(Grid2);
 	AlignGrid[2].NewAlign(Grid3);
 	AlignGrid[3].NewAlign(Grid4);
-
 	DrawPtnH.SetRect(PBoxPtn->Canvas, 0, 0, PBoxPtn->Width / 2 - 2, PBoxPtn->Height);
 	DrawPtnV.SetRect(PBoxPtn->Canvas, (PBoxPtn->Width/2) + 2, 0, PBoxPtn->Width, PBoxPtn->Height);
 	UpdateAllViews();
@@ -2767,7 +2681,6 @@ void __fastcall TMainWnd::FormResize(TObject *Sender)
 void __fastcall TMainWnd::EntryAlignControl(void)
 {
 	TControl *BasicControl = TabSheet1;
-
 	AlignList.EntryControl(PBoxAnt, BasicControl, PBoxAnt->Font);
 	AlignList.EntryControl(PBoxPtn, BasicControl, PBoxPtn->Font);
 	AlignList.EntryControl(CalMemo, BasicControl, CalMemo->Font);
@@ -2833,12 +2746,10 @@ void __fastcall TMainWnd::EntryAlignControl(void)
 	AlignList.EntryControl(StackBtn, BasicControl, StackBtn->Font);
 	AlignList.EntryControl(Label17, BasicControl, Label17->Font);
 	AlignList.EntryControl(Ant3D, BasicControl, Ant3D->Font);
-
 	AlignGrid[0].InitGrid(Grid1);
 	AlignGrid[1].InitGrid(Grid2);
 	AlignGrid[2].InitGrid(Grid3);
 	AlignGrid[3].InitGrid(Grid4);
-
 	int CX = ::GetSystemMetrics(SM_CXFULLSCREEN);
 	int CY = ::GetSystemMetrics(SM_CYFULLSCREEN);
 //	int CX = ::GetSystemMetrics(SM_CXSCREEN);
@@ -2895,7 +2806,6 @@ void __fastcall TMainWnd::AntNameChange(TObject *Sender)
 void __fastcall TMainWnd::EditDM1Change(TObject *Sender)
 {
 	int		dm1;
-
 	CalcU(dm1, AnsiString(EditDM1->Text).c_str());
 	if( dm1 != ant.DM1 ){
 		ant.DM1 = dm1;
@@ -2907,20 +2817,17 @@ void __fastcall TMainWnd::EditDM1Change(TObject *Sender)
 void __fastcall TMainWnd::EditDM2Change(TObject *Sender)
 {
 	int		dm2;
-
 	CalcU(dm2, AnsiString(EditDM2->Text).c_str());
 	if( dm2 != ant.DM2 ){
 		ant.DM2 = dm2;
 		if( ant.wmax ) ant.Edit = ant.Flag = 1;
 	}
-
 }
 //---------------------------------------------------------------------------
 // ATの変更
 void __fastcall TMainWnd::EditECChange(TObject *Sender)
 {
 	int		at;
-
 	CalcU(at, AnsiString(EditEC->Text).c_str());
 	if( at != ant.EC ){
 		if( at <= 0 ) at = 1;
@@ -2933,7 +2840,6 @@ void __fastcall TMainWnd::EditECChange(TObject *Sender)
 void __fastcall TMainWnd::EditSCChange(TObject *Sender)
 {
 	double	sc;
-
 	if( Calc(sc, AnsiString(EditSC->Text).c_str()) == TRUE ){
 		if( sc != ant.SC ){
 			ant.SC = sc;
@@ -2957,7 +2863,6 @@ void __fastcall TMainWnd::EnbLoadClick(TObject *Sender)
 void __fastcall TMainWnd::K18Click(TObject *Sender)
 {
 	TGrpWireDlg *Box = new TGrpWireDlg(this);
-
 	if( Box->Execute(&ant) == TRUE ){
 		UpdateAntData();
 	}
@@ -3027,7 +2932,6 @@ void __fastcall TMainWnd::ACalBtnClick(TObject *Sender)
 		delete Box;
 	}
 }
-
 //---------------------------------------------------------------------------
 // 最適化ボタン
 void __fastcall TMainWnd::DrawPtnACalInfo(void)
@@ -3259,7 +3163,6 @@ int __fastcall TMainWnd::ACalExecute(void)
 	}
 	return FALSE;
 }
-
 //---------------------------------------------------------------------------
 // 実行時の更新禁止
 void __fastcall TMainWnd::DisCalcUI(void)
@@ -3317,7 +3220,6 @@ void __fastcall TMainWnd::ACalResBtnClick(TObject *Sender)
 int __fastcall TMainWnd::SaveACalFile(LPCSTR pName)
 {
 	FILE	*fp;
-
 	if( (fp = fopen(pName, "wb"))!=NULL ){
 		fwrite(ACALSTR, 1, 16, fp);
 		// アンテナ定義を格納
@@ -3344,7 +3246,6 @@ int __fastcall TMainWnd::LoadACalFile(LPCSTR pName)
 	AnsiString	in;
 	FILE		*fp;
 	char		bf[256];
-
 	if( (fp = fopen(pName, "rb"))!=NULL ){
 		fread(bf, 1, 16, fp);
 		if( strcmp(bf, ACALSTR) ){
@@ -3402,7 +3303,6 @@ void __fastcall TMainWnd::K19Click(TObject *Sender)
 void __fastcall TMainWnd::K20Click(TObject *Sender)
 {
 	char	bf[256];
-
 	SaveDialog->Title = "最適化シートを保存";
 	SaveDialog->Filter = "MMANA 最適化シート(*.mao)|*.mao|";
 	if( *antFname.c_str() ){
@@ -3434,7 +3334,6 @@ void __fastcall TMainWnd::K17Click(TObject *Sender)
 void __fastcall TMainWnd::K21Click(TObject *Sender)
 {
 	TOptDlgBox *Box = new TOptDlgBox(this);
-
 	double fq = ant.cfq;
 	double r = 50.0;
 	double x = 0;
@@ -3469,7 +3368,6 @@ void __fastcall TMainWnd::K21Click(TObject *Sender)
 			}
 		}
 	}
-
 	int FontSize = env.FontSize;
 	int rr = Box->Execute(fq, r, x, l, c);
 	if( rr == 2 ){
@@ -3560,7 +3458,6 @@ void __fastcall TMainWnd::KYZ1Click(TObject *Sender)
 void __fastcall TMainWnd::KS4Click(TObject *Sender)
 {
 	TWireScaleDlg *Box = new TWireScaleDlg(this);
-
 	if( Box->Execute(&ant) == TRUE ){
 		UpdateAntData();
 	}
@@ -3631,14 +3528,12 @@ void __fastcall TMainWnd::KT1Click(TObject *Sender)
 {
 #if 1
 	TWireEditDlg *Box = new TWireEditDlg(this);
-
 	if( Box->Execute(ant.wdef, Grid2->Row-1, ant.wmax) == TRUE ){
 		UpdateAntData();
 	}
 	delete Box;
 #else
 	TTriEditDlg *Box = new TTriEditDlg(this);
-
 	if( Box->Execute(&ant, Grid2->Row-1) == TRUE ){
 		UpdateAntData();
 	}
@@ -3649,7 +3544,6 @@ void __fastcall TMainWnd::KT1Click(TObject *Sender)
 void __fastcall TMainWnd::BwBtnClick(TObject *Sender)
 {
 	TBwDispDlg *Box = new TBwDispDlg(this);
-
 	if( Box->Execute(&ant, ResColors) == TRUE ){
 		DrawPtnH.SetMaxDB(res.MaxG);
 		DrawPtnV.SetMaxDB(res.MaxG);
@@ -3670,11 +3564,9 @@ void __fastcall TMainWnd::PrintBtnClick(TObject *Sender)
 		DrawH.gCol = clBlack;
 		DrawV.gCol = clBlack;
 		TRect rc = Printer()->Canvas->ClipRect;
-
 		int pw = rc.Right - rc.Left;
 		int ph = rc.Bottom - rc.Top;
 		Printer()->Canvas->Font->Height = sqrt((float)pw * (float)ph)/45;
-
 		rc.Left = (pw/20);
 		rc.Top = (ph/20);
 		ph = (ph * 18)/20;
@@ -3721,7 +3613,6 @@ void __fastcall TMainWnd::PrintBtnClick(TObject *Sender)
 void __fastcall TMainWnd::K27Click(TObject *Sender)
 {
 	TValRepDlg *Box = new TValRepDlg(this);
-
 	if( Box->Execute(&ant, Grid2->Row, Grid2->Col) == TRUE ){
 		UpdateAntData();
 	}
@@ -3732,7 +3623,6 @@ void __fastcall TMainWnd::K27Click(TObject *Sender)
 void __fastcall TMainWnd::K28Click(TObject *Sender)
 {
 	TMoveDlgBox *Box = new TMoveDlgBox(this);
-
 	if( Box->Execute(&ant, Grid2->Row, Grid2->Col) == TRUE ){
 		UpdateAntData();
 	}
@@ -3743,7 +3633,6 @@ void __fastcall TMainWnd::K28Click(TObject *Sender)
 void __fastcall TMainWnd::K30Click(TObject *Sender)
 {
 	TTextEditDlg *Box = new TTextEditDlg(this);
-
 	AnsiString	Edit;
 	SaveAntStrings(Edit);
 	if( Box->Execute(Edit, TRUE) == TRUE ){
@@ -3761,7 +3650,6 @@ void __fastcall TMainWnd::K30Click(TObject *Sender)
 void __fastcall TMainWnd::K34Click(TObject *Sender)
 {
 	TTextEditDlg *Box = new TTextEditDlg(this);
-
 	if( Box->Execute(antRem, TRUE, "文書情報(コメント)") == TRUE ){
 		antRem = Box->Memo->Text;
 		ant.Edit = 1;
@@ -3791,7 +3679,6 @@ void __fastcall TMainWnd::WaveSelClick(TObject *Sender)
 void __fastcall TMainWnd::KC2Click(TObject *Sender)
 {
 	char	bf[256];
-
 	SaveDialog->Title = "電流ファイルを作成";
 	SaveDialog->Filter = "CSVファイル(*.csv)|*.csv|";
 	if( *antFname.c_str() ){
@@ -3841,7 +3728,6 @@ void __fastcall TMainWnd::K31Click(TObject *Sender)
 {
 	char bf[256];
 	TNearSetDlg *Box = new TNearSetDlg(this);
-
 	exeenv.pNearFile = new NEARFILE;
 	memset(exeenv.pNearFile, 0, sizeof(NEARFILE));
 	exeenv.pNearFile->POW = 50;
@@ -3893,7 +3779,6 @@ void __fastcall TMainWnd::K32Click(TObject *Sender)
 {
 	char bf[256];
 	TFarSetDlg *Box = new TFarSetDlg(this);
-
 	exeenv.pFarFile = new FARFILE;
 	memset(exeenv.pFarFile, 0, sizeof(FARFILE));
 	exeenv.pFarFile->A = 0;
@@ -3947,7 +3832,6 @@ void __fastcall TMainWnd::EleBtnClick(TObject *Sender)
 {
 	UnicodeString	DegStr;	// ja7ude 1.0
 	double		deg;
-
 	DegStr = StrDbl(RoundUp(res.ElvHPtn, 100));
 	if( InputQuery("MMANA", "水平パターンの計算仰角（0～90）を入力", DegStr) == TRUE ){
 		if( Calc(deg, AnsiString(DegStr).c_str()) == TRUE ){
@@ -3968,7 +3852,6 @@ void __fastcall TMainWnd::EleBtnClick(TObject *Sender)
 void __fastcall TMainWnd::K33Click(TObject *Sender)
 {
 	TRotWireDlg *Box = new TRotWireDlg(this);
-
 	if( Box->Execute(&ant) == TRUE ){
 		UpdateAntData();
 	}
@@ -3979,7 +3862,6 @@ void __fastcall TMainWnd::K33Click(TObject *Sender)
 void __fastcall TMainWnd::KCADClick(TObject *Sender)
 {
 	TWireCadDlg *Box = new TWireCadDlg(this);
-
 	int Sel = Grid2->Row - 1;
 	if( Box->Execute(&ant, Sel) == TRUE ){
 		UpdateAntData();
@@ -4026,10 +3908,8 @@ void __fastcall TMainWnd::K35Click(TObject *Sender)
 void __fastcall TMainWnd::FormPaint(TObject *Sender)
 {
 	if( FirstInit == FALSE ) return;
-
 	FirstInit = FALSE;
 	char	bf[1024];
-
 	for (int i=1;i<=ParamCount();i++){
 		strncpy(bf, AnsiString(ParamStr(i)).c_str(), sizeof(bf)-1);
 		if( (bf[0] == '-')&&(bf[0] == '/') ){     // オプション
@@ -4043,7 +3923,6 @@ void __fastcall TMainWnd::FormPaint(TObject *Sender)
 // アンテナ計算ファイルの保存
 /*
 	char	bf[256];
-
 	SaveDialog->Title = "アンテナ計算ファイルを保存";
 	SaveDialog->Filter = "テキストファイル(*.txt)|*.txt|";
 	if( *antFname.c_str() ){
@@ -4079,7 +3958,6 @@ void __fastcall TMainWnd::K36Click(TObject *Sender)
 void __fastcall TMainWnd::K37Click(TObject *Sender)
 {
 	TStackDlgBox *Box = new TStackDlgBox(this);
-
 	int r = Box->Execute(&ant);
 	if( r == 1024 ){
 		UpdateAntData();
@@ -4133,7 +4011,6 @@ void __fastcall TMainWnd::Stack(void)
 	ANTDEF	*bp = new ANTDEF;
 	int i, n;
 	WDEF	*wsp, *wtp;
-
 	int		wmax = pCalAnt->wmax;
 	memcpy(bp, pCalAnt, sizeof(ANTDEF));
 	if( ant.StackH > 1 ){		// 水平方向のスタック
@@ -4201,13 +4078,10 @@ void __fastcall TMainWnd::Stack(void)
 void __fastcall TMainWnd::AddWireNo(LPSTR t, int off)
 {
 	if( !off ) return;
-
 	int		d;
 	LPSTR	p;
-
 	if( (*t == 'w')||(*t == 'W') ){
 		char	bf[32];
-
 		for( p = t+1; *p; p++ ){
 			if( !isdigit(*p) ) break;
 		}
@@ -4221,9 +4095,7 @@ void __fastcall TMainWnd::AddWireNo(LPSTR t, int off)
 		sprintf(t, "%d", d + off);
 	}
 }
-
 //---------------------------------------------------------------------------
-
 
 void __fastcall TMainWnd::Ant3DClick(TObject *Sender)
 {
@@ -4356,7 +4228,6 @@ void __fastcall TMainWnd::PopupAntPopup(TObject *Sender)
 void __fastcall TMainWnd::K45Click(TObject *Sender)
 {
 	TWCombDlg *Box = new TWCombDlg(this);
-
 	if( Box->Execute(&ant) == TRUE ){
 		AdjPdef(&ant);
 		UpdateAntData();
@@ -4367,7 +4238,6 @@ void __fastcall TMainWnd::K45Click(TObject *Sender)
 void __fastcall TMainWnd::K47Click(TObject *Sender)
 {
 	TWCombDspDlg *Box = new TWCombDspDlg(this);
-
 	WDEF *wp = &ant.wdef[Grid2->Row-1];
 	PDEF *pp = FindPP(&ant, wp->R);
 	Box->Execute(&ant, pp, wp, Grid2->Row);
@@ -4414,7 +4284,6 @@ void __fastcall TMainWnd::UpdateRecentMenu(void)
 void __fastcall TMainWnd::LoadDispatch(LPCSTR pName)
 {
 	int f;
-
 	if( !strcmpi(GetEXT(pName), "MAA") ){
 		antFname = pName;
 		f = LoadAntFile(pName);
@@ -4435,4 +4304,5 @@ void __fastcall TMainWnd::KMMANAWebW1Click(TObject *Sender)
 	WebRef.ShowHTML("http://plaza27.mbn.or.jp/~je3hht/mmana/index.html");	
 }
 //---------------------------------------------------------------------------08
-
+
+
