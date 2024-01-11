@@ -2553,9 +2553,15 @@ void __fastcall TMainWnd::K12Click(TObject *Sender)
 {
 	if( CheckSaveAntFile() == FALSE ) return;
 	OpenDialog->Title = "計算結果を開く";
+	#ifdef _WIN64
+	OpenDialog->Filter = "MMANA 計算結果(*.mab64)|*.mab64|";
+	OpenDialog->FileName = "";
+	OpenDialog->DefaultExt = "mab64";
+	#else
 	OpenDialog->Filter = "MMANA 計算結果(*.mab)|*.mab|";
 	OpenDialog->FileName = "";
 	OpenDialog->DefaultExt = "mab";
+	#endif
 	OpenDialog->InitialDir = ResDir;
 	if( OpenDialog->Execute() == TRUE ){
 		if( LoadResFile(AnsiString(OpenDialog->FileName).c_str() ) == TRUE ){
@@ -2570,6 +2576,18 @@ void __fastcall TMainWnd::K11Click(TObject *Sender)
 {
 	char	bf[256];
 	SaveDialog->Title = "計算結果を保存";
+	#ifdef _WIN64
+	SaveDialog->Filter = "MMANA 計算結果(*.mab64)|*.mab64|";
+	if( *antFname.c_str() ){
+		strcpy(bf, antFname.c_str());
+		SetEXT(bf, ".mab64");
+		SaveDialog->FileName = GetFileName(bf);
+	}
+	else {
+		SaveDialog->FileName = "無題";
+	}
+	SaveDialog->DefaultExt = "mab64";
+	#else
 	SaveDialog->Filter = "MMANA 計算結果(*.mab)|*.mab|";
 	if( *antFname.c_str() ){
 		strcpy(bf, antFname.c_str());
@@ -2580,6 +2598,7 @@ void __fastcall TMainWnd::K11Click(TObject *Sender)
 		SaveDialog->FileName = "無題";
 	}
 	SaveDialog->DefaultExt = "mab";
+	#endif
 	SaveDialog->InitialDir = ResDir;
 	if( SaveDialog->Execute() == TRUE ){
 		SaveResFile(AnsiString(SaveDialog->FileName).c_str());
@@ -3287,9 +3306,15 @@ void __fastcall TMainWnd::K19Click(TObject *Sender)
 {
 	if( CheckSaveAntFile() == FALSE ) return;
 	OpenDialog->Title = "最適化シートを開く";
+	#ifdef _WIN64
+	OpenDialog->Filter = "MMANA 最適化シート(*.mao64)|*.mao64|";
+	OpenDialog->FileName = "";
+	OpenDialog->DefaultExt = "mao64";
+	#else
 	OpenDialog->Filter = "MMANA 最適化シート(*.mao)|*.mao|";
 	OpenDialog->FileName = "";
 	OpenDialog->DefaultExt = "mao";
+	#endif
 	OpenDialog->InitialDir = ResDir;
 	if( OpenDialog->Execute() == TRUE ){
 		if( LoadACalFile(AnsiString(OpenDialog->FileName).c_str() ) == TRUE ){	// ja7ude 1.0
@@ -3304,6 +3329,18 @@ void __fastcall TMainWnd::K20Click(TObject *Sender)
 {
 	char	bf[256];
 	SaveDialog->Title = "最適化シートを保存";
+	#ifdef _WIN64
+	SaveDialog->Filter = "MMANA 最適化シート(*.mao64)|*.mao64|";
+	if( *antFname.c_str() ){
+		strcpy(bf, antFname.c_str());
+		SetEXT(bf, ".mao64");
+		SaveDialog->FileName = GetFileName(bf);
+	}
+	else {
+		SaveDialog->FileName = "無題";
+	}
+	SaveDialog->DefaultExt = "mao64";
+	#else
 	SaveDialog->Filter = "MMANA 最適化シート(*.mao)|*.mao|";
 	if( *antFname.c_str() ){
 		strcpy(bf, antFname.c_str());
@@ -3314,6 +3351,7 @@ void __fastcall TMainWnd::K20Click(TObject *Sender)
 		SaveDialog->FileName = "無題";
 	}
 	SaveDialog->DefaultExt = "mao";
+	#endif
 	SaveDialog->InitialDir = ResDir;
 	if( SaveDialog->Execute() == TRUE ){
 		SaveACalFile(AnsiString(SaveDialog->FileName).c_str());	// ja7ude 1.0
