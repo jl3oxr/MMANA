@@ -1,5 +1,6 @@
 Debug_Build/
 Release_Build/
+__astcache/
 __history/
 __recover/
 __recovery/
