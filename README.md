@@ -11,7 +11,7 @@ http://www.gnu.org/licenses/lgpl-3.0.en.html
 JA7UDE 大庭OMが公開してくださっているGitHubリポジトリhttps://github.com/ja7ude/MMANA
 からフォークしてソースをいじってます。
 
-EmbarcaderoのRAD Studio 11.3 Alexandria Community Editionでビルドできることを確認しました。
+EmbarcaderoのRAD Studio 12.1 Athens Community Editionでビルドできることを確認しました。
 Community Editionは個人の開発者、スタートアップ企業、学生などが無償で利用できます。
 
 https://www.embarcadero.com/jp/products/cbuilder/starter
