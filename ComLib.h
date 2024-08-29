@@ -42,10 +42,10 @@
 
 #define	VERSTR	"MMANA Ver1.77 (C) JE3HHT 1999-2000"
 #ifdef __WIN32__
-#define	VERSTR2	"build 20240108 (32bit)"
+#define	VERSTR2	"build 20240831 (32bit)"
 #endif
 #ifdef _WIN64
-#define	VERSTR2	"build 20240108 (64bit)"
+#define	VERSTR2	"build 20240831 (64bit)"
 #endif
 #define RESSTR	"MMANA Res1.16\x1a"	// RESVER‚Æ“¯‚¶’l
 #define ACALSTR	"MMANA Opt1.13\x1a"	// OPTVER‚Æ“¯‚¶’l
