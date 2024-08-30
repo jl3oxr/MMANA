@@ -4,7 +4,7 @@ MMANA
 JE3HHT 森OMが作成された、Windows上で動作するアンテナ設計解析プログラムです。
 森OMのご支援により、2013年8月オープンソースとなりました。
 
-ライセンスはGNU Lesser Public General License (LGPL)です。詳細については
+ライセンスはGNU Lesser General Public License (LGPL)です。詳細については
 http://www.gnu.org/licenses/lgpl-3.0.en.html
 を参照してください。
 
