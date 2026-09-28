@@ -346,7 +346,7 @@ int __fastcall TOptDlgBox::Execute(double freq, double r, double x, double l, do
 			env.FontSize = int(d);
 		}
 		if( CalcU(di, AnsiString(EditPls->Text).c_str()) == TRUE ){
-			if( (di > 0) && (di <= 8192) ){
+			if( (di > 0) && (di <= PMAX) ){
 				if( di != env.pmax ){
 					DeleteNEC();
 					env.pmax = InitNEC(di);

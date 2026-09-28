@@ -27,12 +27,12 @@
 #include <math.h>
 #include <mbstring.h>
 //---------------------------------------------------------------------------
-#define	WMAX	512		// ワイヤの数
-#define	WZMAX	4096	// 展開ワイヤの数
+#define	WMAX	1024	// ワイヤの数
+#define	WZMAX	8192	// 展開ワイヤの数
 #define	CMAX	64		// 給電点の数
 #define	LMAX	100		// ロードの数
 #define	EMAX	15		// 環境の数
-#define	PMAX	8192	// 扱えるパルスの数
+#define	PMAX	16384	// 扱えるパルスの数
 #define	SMAX	12		// S-DOMAINの階数
 
 #define	PTMAX	10
@@ -42,10 +42,10 @@
 
 #define	VERSTR	"MMANA Ver1.77 (C) JE3HHT 1999-2000"
 #ifdef __WIN32__
-#define	VERSTR2	"build 20250104 (32bit)"
+#define	VERSTR2	"build 20260923 (32bit)"
 #endif
 #ifdef _WIN64
-#define	VERSTR2	"build 20250104 (64bit)"
+#define	VERSTR2	"build 20260923 (64bit)"
 #endif
 #define RESSTR	"MMANA Res1.16\x1a"	// RESVERと同じ値
 #define ACALSTR	"MMANA Opt1.13\x1a"	// OPTVERと同じ値

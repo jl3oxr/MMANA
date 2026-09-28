@@ -20,36 +20,33 @@
 #pragma hdrstop
 
 //---------------------------------------------------------------------------
-USEFORM("Main.cpp", MainWnd);
-USEUNIT("mininec3.cpp");
-USERES("mmana.res");
-USEUNIT("ComLib.cpp");
-USEFORM("TextEdit.cpp", TextEditDlg);
-USEFORM("VerDsp.cpp", VerDspDlg);
-USEFORM("MediaDlg.cpp", MediaDlgBox);
 USEFORM("ResCmp.cpp", ResCmpDlg);
-USEFORM("GrpWire.cpp", GrpWireDlg);
-USEFORM("ACalBox.cpp", ACalDlg);
-USEFORM("ACalRes.cpp", ACalResDlg);
-USEFORM("OptDlg.cpp", OptDlgBox);
-USEFORM("ACalMult.cpp", ACalMultDlg);
-USEFORM("WireScl.cpp", WireScaleDlg);
-USEFORM("BwDisp.cpp", BwDispDlg);
-USEFORM("ValRep.cpp", ValRepDlg);
+USEFORM("RotWire.cpp", RotWireDlg);
+USEFORM("StackDlg.cpp", StackDlgBox);
+USEFORM("Print.cpp", PrintDlgBox);
 USEFORM("MoveDlg.cpp", MoveDlgBox);
 USEFORM("NearSet.cpp", NearSetDlg);
-USEFORM("FarSet.cpp", FarSetDlg);
-USEFORM("RotWire.cpp", RotWireDlg);
+USEFORM("OptDlg.cpp", OptDlgBox);
+USEFORM("TextEdit.cpp", TextEditDlg);
 USEFORM("WireCad.cpp", WireCadDlg);
 USEFORM("WireEdit.cpp", WireEditDlg);
-USEFORM("ACalInfo.cpp", ACalInfoBox);
-USERC("Mmanam.rc");
-USEFORM("StackDlg.cpp", StackDlgBox);
-USEFORM("WComb.cpp", WCombDlg);
+USEFORM("WireScl.cpp", WireScaleDlg);
 USEFORM("WcombDsp.cpp", WCombDspDlg);
+USEFORM("ValRep.cpp", ValRepDlg);
+USEFORM("VerDsp.cpp", VerDspDlg);
+USEFORM("WComb.cpp", WCombDlg);
+USEFORM("ACalRes.cpp", ACalResDlg);
+USEFORM("BwDisp.cpp", BwDispDlg);
+USEFORM("ACalMult.cpp", ACalMultDlg);
+USEFORM("ACalBox.cpp", ACalDlg);
 USEFORM("ACalEle.cpp", ACalEleBox);
+USEFORM("ACalInfo.cpp", ACalInfoBox);
+USEFORM("FarSet.cpp", FarSetDlg);
+USEFORM("MediaDlg.cpp", MediaDlgBox);
 USEFORM("FreqSet.cpp", FreqSetDlg);
-USEFORM("Print.cpp", PrintDlgBox);
+USEFORM("GrpWire.cpp", GrpWireDlg);
+USEFORM("Main.cpp", MainWnd);
+USEFORM("PrgBar.cpp", ProgressForm);
 //---------------------------------------------------------------------------
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
@@ -58,6 +55,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		Application->Initialize();
 		Application->Title = "MMANA";
 		Application->CreateForm(__classid(TMainWnd), &MainWnd);
+		Application->CreateForm(__classid(TProgressForm), &ProgressForm);
 		Application->Run();
 	}
 	catch (Exception &exception)

@@ -1,2 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject/>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2026/09/22 00:37:30.000.204,=\\Mac\Home\src\MMANA\Unit1.cpp</Transaction>
+    <Transaction>2026/09/22 00:38:36.000.621,\\Mac\Home\src\MMANA\PrgBar.cpp=\\Mac\Home\src\MMANA\Unit1.cpp</Transaction>
+    <Transaction>2026/09/22 00:38:36.000.621,\\Mac\Home\src\MMANA\PrgBar.h=\\Mac\Home\src\MMANA\Unit1.h</Transaction>
+    <Transaction>2026/09/22 00:38:36.000.621,\\Mac\Home\src\MMANA\PrgBar.dfm=\\Mac\Home\src\MMANA\Unit1.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

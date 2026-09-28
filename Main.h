@@ -44,6 +44,7 @@
 class TMainWnd : public TForm
 {
 __published:	// IDE 管理のコンポーネント
+//    TProgressBar *ProgressBar; //JL3OXR
 	TOpenDialog *OpenDialog;
 	TSaveDialog *SaveDialog;
 	TPageControl *Page;

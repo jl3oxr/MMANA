@@ -24,6 +24,7 @@
 #include <except.h>
 #include "MiniNec3.h"
 #include "Main.h"
+#include "PrgBar.h"
 
 #define	INT(c)	(((c)<0)?((int)((c)-1)):((int)(c)))
 
@@ -552,6 +553,7 @@ void S196(void)
 /*
 	REM ********** IMPEDANCE MATRIX CALCULATION **********
 */
+	float ProgressRatio = 0.0;
 
 	if( FLG == 1 ) goto L428;
 	if( FLG == 2 ) goto L477;
@@ -571,7 +573,18 @@ void S196(void)
 #endif
 
 	/*	REM ----- COMPUTE ROW I OF MATRIX (OBSERVATION LOOP)*/
+	ProgressForm->ProgressBar1->Min = 0;
+	ProgressForm->ProgressBar1->Max = N * 2;
+	ProgressForm->ProgressBar1->Position = 0;
+	ProgressForm->Label1->Caption = UnicodeString::Format("%4.1f %%", OPENARRAY(System::TVarRec, (ProgressRatio)));
+	ProgressForm->Show();
 	for( I = 1; I <= N; I++ ){
+		if (!(I % 100)) {
+			ProgressForm -> ProgressBar1 -> Position = I;
+			ProgressRatio = (float)I * 50.0 / (float)N;
+			ProgressForm -> Label1 -> Caption = UnicodeString::Format("%4.1f %%", OPENARRAY(System::TVarRec, (ProgressRatio)));
+			Application -> ProcessMessages();
+		}
 		I1=ABS(REFACI(I,1));
 		I2=ABS(REFACI(I,2));
 		F4=SGN(REFACI(I,1))*aS[I1];
@@ -770,6 +783,13 @@ L377:;	/* :L343	*/
 	X=N;
 	PCTN=X*(X-1)*(X+X-1);
 	for( K = 1; K < N; K++ ){
+		if (!(K % 100)) {
+			ProgressForm -> ProgressBar1 -> Position = K + N;
+			ProgressRatio = (float)(K + N) * 50.0 / (float) N;
+			ProgressForm -> Label1 -> Caption = UnicodeString::Format("%4.1f %%", OPENARRAY(System::TVarRec, (ProgressRatio)));
+			Application -> ProcessMessages();
+		}
+
 		/* REM ----- SEARCH FOR PIVOT	*/
 		IX1 = GETREF(K,K);
 		T=REFDIM(aZR,IX1)*REFDIM(aZR,IX1)+REFDIM(aZI,IX1)*REFDIM(aZI,IX1);
@@ -820,6 +840,7 @@ L377:;	/* :L343	*/
 		X=N-K;
 		PCT=1-X*(X-1)*(X+X-1)/PCTN;
 	}
+	ProgressForm->Close();
 	/* REM ----- END MATRIX FACTOR TIME CALCULATION	*/
 //	Print("FACTOR MATRIX: ");
 	/* REM ********** SOLVE **********	*/
@@ -2314,6 +2335,10 @@ L1293:;	/*:L1288*/
 
 void CalCurrent(void)
 {
+	if (!ProgressForm) {
+        ProgressForm = new TProgressForm(Application);
+	}
+
 	S497();		// “d—¬ŒvŽZ
 //	Application->ProcessMessages();
 

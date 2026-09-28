@@ -36,6 +36,7 @@
 #include "WComb.h"
 #include "WcombDsp.h"
 #include "FreqSet.h"
+#include "PrgBar.h"
 //---------------------------------------------------------------------------
 #pragma resource "*.dfm"
 TMainWnd *MainWnd;
